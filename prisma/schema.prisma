@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model customers {
+  id            Int      @id(map: "customers_pk") @default(autoincrement())
+  customer_name String?  @db.VarChar
+  city          String?  @db.VarChar
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  sales         sales[]
+}
+
+model users {
+  id         Int      @id(map: "users_pk") @default(autoincrement())
+  username   String?  @unique(map: "unique_username") @db.VarChar(9)
+  password   String?  @db.VarChar
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model sales {
+  id           Int       @id(map: "sales_pk") @default(autoincrement())
+  product_name String?   @db.VarChar
+  quantity     Int?
+  created_at   DateTime  @default(now()) @db.Timestamptz(6)
+  customers_id Int
+  customers    customers @relation(fields: [customers_id], references: [id], onDelete: NoAction, map: "sales_fk")
+}
