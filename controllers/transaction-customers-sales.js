@@ -253,7 +253,9 @@ const deleteTransaction = async (req, res) => {
     });
 
     res.json({ msg: `${existingCustomer.customer_name} has been deleted` });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
 };
 
 module.exports = {
