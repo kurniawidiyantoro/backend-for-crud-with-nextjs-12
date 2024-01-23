@@ -95,8 +95,6 @@ const login = async (req, res) => {
         }
       );
 
-      // Set the token to the session
-      req.session.token = token;
 
       return res.json({ msg: "Login successfully", token: token });
     }

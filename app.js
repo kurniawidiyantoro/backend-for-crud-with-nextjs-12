@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const session = require ('express-session')
 const { register, login } = require('./controllers/users');
 const { getAllCustomers, getCustomerById, createNewCustomer, updateCustomer, deleteCustomer } = require('./controllers/customers');
 const { createNewTransaction, getAllTransaction, updateTransaction, deleteTransaction } = require('./controllers/transaction-customers-sales');
@@ -9,12 +8,6 @@ const app = express()
 //middlewares
 
 app.use(express.json());
-app.use(session({
-  secret:process.env.SESSION_KEY,
-  resave: false,
-  saveUninitialized: false
-
-}))
 app.use(cors())
 
 //root
