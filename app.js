@@ -6,12 +6,9 @@ const { createNewTransaction, getAllTransaction, updateTransaction, deleteTransa
 const app = express()
 
 //middlewares
+
 app.use(express.json());
-app.use(cors({
-  origin: 'https://easy-blue-rattlesnake-coat.cyclic.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true
-}));
+app.use(cors())
 
 //root
 app.get('/', function (req, res) {
