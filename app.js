@@ -8,7 +8,7 @@ const app = express()
 //middlewares
 app.use(express.json());
 app.use(cors({
-  origin: 'https://crud-with-nextjs-12.vercel.app/',
+  origin: 'https://easy-blue-rattlesnake-coat.cyclic.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 }));
