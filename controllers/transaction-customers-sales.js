@@ -143,7 +143,7 @@ const updateTransaction = async (req, res) => {
     const customerId = Number(req.params.id);
 
     //validation for customers
-    const onlyLetters = /^[a-zA-Z]+$/;
+    const onlyLettersAndSpacing = /^[a-zA-Z\s]+$/;
 
     if (!customer_name && !city) {
       return res.status(400).json({ msg: "input name and city" });
@@ -154,10 +154,10 @@ const updateTransaction = async (req, res) => {
     if (!city) {
       return res.status(400).json({ msg: "input city.." });
     }
-    if (!onlyLetters.test(customer_name)) {
+    if (!onlyLettersAndSpacing.test(customer_name)) {
       return res.status(400).json({ msg: "input valid name with only letters.." });
     }
-    if (!onlyLetters.test(city)) {
+    if (!onlyLettersAndSpacing.test(city)) {
       return res.status(400).json({ msg: "input valid city with only letters.." });
     }
 
