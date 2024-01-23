@@ -6,9 +6,12 @@ const { createNewTransaction, getAllTransaction, updateTransaction, deleteTransa
 const app = express()
 
 //middlewares
-
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+  origin: 'https://crud-with-nextjs-12.vercel.app/',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+}));
 
 //root
 app.get('/', function (req, res) {
