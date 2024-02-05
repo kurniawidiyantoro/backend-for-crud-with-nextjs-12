@@ -13,28 +13,28 @@ const createNewTransaction = async (req, res) => {
       return res.status(400).json({ msg: "input name and city" });
     }
     if (!customer_name) {
-      return res.json({ msg: "input name.." });
+      return res.status(400).json({ msg: "input name.." });
     }
     if (!city) {
-      return res.json({ msg: "input city.." });
+      return res.status(400).json({ msg: "input city.." });
     }
     if (!onlyLettersAndSpacing.test(customer_name)) {
-      return res.json({ msg: "input valid name with only letters.." });
+      return res.status(400).json({ msg: "input valid name with only letters.." });
     }
     if (!onlyLettersAndSpacing.test(city)) {
-      return res.json({ msg: "input valid city with only letters.." });
+      return res.status(400).json({ msg: "input valid city with only letters.." });
     }
 
     //validation for sales
     if (!product_name) {
-      return res.json({ msg: "input product.." });
+      return res.status(400).json({ msg: "input product.." });
     }
     if (!quantity || quantity <= 0) {
-      return res.json({ msg: "input quantity.." });
+      return res.status(400).json({ msg: "input quantity.." });
     }
 
     if (isNaN(quantity)) {
-      return res.json({ msg: "input valid quantity only number.." });
+      return res.status(400).json({ msg: "input valid quantity only number.." });
     }
 
     //create transaction if all valid
@@ -155,10 +155,14 @@ const updateTransaction = async (req, res) => {
       return res.status(400).json({ msg: "input city.." });
     }
     if (!onlyLettersAndSpacing.test(customer_name)) {
-      return res.status(400).json({ msg: "input valid name with only letters.." });
+      return res
+        .status(400)
+        .json({ msg: "input valid name with only letters.." });
     }
     if (!onlyLettersAndSpacing.test(city)) {
-      return res.status(400).json({ msg: "input valid city with only letters.." });
+      return res
+        .status(400)
+        .json({ msg: "input valid city with only letters.." });
     }
 
     //validation for sales
@@ -170,7 +174,9 @@ const updateTransaction = async (req, res) => {
     }
 
     if (isNaN(quantity)) {
-      return res.status(400).json({ msg: "input valid quantity only number.." });
+      return res
+        .status(400)
+        .json({ msg: "input valid quantity only number.." });
     }
 
     // check existing customer join sales
@@ -180,12 +186,12 @@ const updateTransaction = async (req, res) => {
     });
 
     if (!existingCustomer) {
-      return res.status(404).json({ msg: "Customer not found" });
+      return res.status(400).json({ msg: "Customer not found" });
     }
     // Check if sales records exist
     if (!existingCustomer.sales || existingCustomer.sales.length === 0) {
       return res
-        .status(404)
+        .status(400)
         .json({ msg: "No sales records found for the customer" });
     }
 
@@ -239,7 +245,7 @@ const deleteTransaction = async (req, res) => {
     });
 
     if (!existingCustomer) {
-      return res.status(404).json({ msg: "Customer not found" });
+      return res.status(400).json({ msg: "Customer not found" });
     }
 
     // Delete associated sales
@@ -254,6 +260,7 @@ const deleteTransaction = async (req, res) => {
 
     res.json({ msg: `${existingCustomer.customer_name} has been deleted` });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ msg: "Internal server error" });
   }
 };
